@@ -1,5 +1,5 @@
 defmodule AdventOfCode.Day02InventoryManagementSystem do
-  def run(ids) do
+  def part1(ids) do
     {x, y} =
       ids
       |> String.split("\n", trim: true)
@@ -14,7 +14,7 @@ defmodule AdventOfCode.Day02InventoryManagementSystem do
     x * y
   end
 
-  def common_closest(box_ids) do
+  def part2(box_ids) do
     ids = String.split(box_ids, "\n", trim: true)
 
     {_distance, first, second} =
