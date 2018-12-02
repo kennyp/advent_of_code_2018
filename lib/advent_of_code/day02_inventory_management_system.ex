@@ -12,12 +12,12 @@ defmodule AdventOfCode.Day02InventoryManagementSystem do
   def part2(box_ids) do
     ids = String.split(box_ids, "\n", trim: true)
 
-    {_distance, first, second} =
-      for a <- ids, b <- ids do
-        {String.jaro_distance(a, b), a, b}
-      end
-      |> Enum.sort_by(&elem(&1, 0), &>=/2)
-      |> Enum.drop_while(&(elem(&1, 0) == 1))
+    {first, second} =
+      (for a <- ids, b <- ids, do: {a, b})
+      |> Enum.sort_by(fn
+        {a, a} -> 0
+        {a, b} -> String.jaro_distance(a, b)
+      end, &>=/2)
       |> List.first()
 
     first
