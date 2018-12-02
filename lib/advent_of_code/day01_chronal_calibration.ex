@@ -2,16 +2,15 @@ defmodule AdventOfCode.Day01ChronalCalibration do
   def part1(changes) do
     changes
     |> String.split("\n", trim: true)
-    |> Enum.map(&String.to_integer/1)
-    |> Enum.sum()
+    |> Enum.reduce(0, &(&2 + String.to_integer(&1)))
   end
 
   def part2(changes) do
     changes
     |> String.split("\n", trim: true)
     |> Stream.cycle()
-    |> Enum.reduce_while({0, MapSet.new([0])}, fn
-      change, {freq, prev} -> seen?(freq + String.to_integer(change), prev)
+    |> Enum.reduce_while({0, MapSet.new([0])}, fn change, {freq, prev} ->
+      seen?(freq + String.to_integer(change), prev)
     end)
   end
 
